@@ -1,12 +1,13 @@
 # TODO:
 [ ]Crafting
-[ ]action on punch(on/off)
-[ ]textures configh a traves de config
+[x]action on punch(on/off)
+[ ]textures 32/16 configh a traves de config
 [ ]hacer window paso de la lux y cortables y/o planas
 [ ]crear screenshot.png
 [ ] Quitar cristales
 [ ] Crear iconos inventario
-
+[ ] modificar metodo register_light para recibir json
+[ ] opcion en el json para determinar si la luz es apagable
 
 
 # IDEAS
