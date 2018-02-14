@@ -8,6 +8,7 @@
 [ ] Crear iconos inventario
 [ ] modificar metodo register_light para recibir json
 [ ] opcion en el json para determinar si la luz es apagable
+[ ]Crear textura por defecto para cuando no pasen la textura por config
 
 
 # IDEAS
