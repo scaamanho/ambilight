@@ -1,5 +1,7 @@
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 
+ambilight = {}
+
 minetest.register_node("ambilight:one", {
 	description = "Light 1 test",
 	drawtype = "nodebox",
@@ -7,7 +9,7 @@ minetest.register_node("ambilight:one", {
 	inventory_image = "ambilight_light1.png",
 	wield_image = "ambilight_light1.png",
 	paramtype = "light",
-	light_source = 15,
+	light_source = default.LIGHT_MAX-1,
 	--buildable_to = true,
 	groups = {dig_immediate=2},
 	
@@ -21,13 +23,14 @@ minetest.register_node("ambilight:two", {
 	inventory_image = "ambilight_light2.png",
 	wield_image = "ambilight_light2.png",
 	paramtype = "light",
-	light_source = 5,
+	light_source = default.LIGHT_MAX-6,
+	
 	--buildable_to = true,
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+	on_punch = function(pos, node, clicker, itemstack, pointed_thing)
 		minetest.set_node(pos, {name = "ambilight:two_off"})	  
 	end,
 	groups = {dig_immediate=2},
-	
+	sounds = default.node_sound_glass_defaults(),
 })
 
 minetest.register_node("ambilight:two_off", {
@@ -38,7 +41,7 @@ minetest.register_node("ambilight:two_off", {
 	paramtype = "light",
 	--buildable_to = true,
 	groups = {dig_immediate=2, not_in_creative_inventory=1},
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+	on_punch = function(pos, node, clicker, itemstack, pointed_thing)
 		minetest.set_node(pos, {name = "ambilight:two"})	  
 	end,
 	drop = "ambilight:two"
