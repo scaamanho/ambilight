@@ -23,6 +23,7 @@ function ambilight.register_light(name, node)
 		end
 	end
 
+	--[[
 	if not node.inventory_image then
 		if not node.id then
 			--defaut inv img
@@ -42,7 +43,7 @@ function ambilight.register_light(name, node)
 			node.wield_image = {"ambilight_light"..node.id..".png"} -- ambilight predefined
 		end
 	end
-
+	]]--
 	-- set default node description
 	if not node.description then
 		node.description = "Ambilight "..name
@@ -67,8 +68,8 @@ function ambilight.register_light(name, node)
 		drawtype = node.drawtype,
 		selection_box = node.selection_box,
 		tiles = node.tiles,
-		inventory_image = node.inventory_image,
-		wield_image = node.wield_image,
+		--inventory_image = node.inventory_image,
+		--wield_image = node.wield_image,
 		paramtype = "light",
 		light_source = node.light_source,
 		
@@ -156,6 +157,21 @@ ambilight.register_light("seven",{
 	enable_interact=true
 })
 
+-- custom lights
+ambilight.register_light("window",{
+	light_source = default.LIGHT_MAX-6,
+	tiles = {"ambilight_window1.png"},
+	enable_interact=true
+})
+
+ambilight.register_light("petrol2",{
+	light_source = default.LIGHT_MAX-4,
+	drawtype ="plantlike",
+	type = "fixed",
+	fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25},
+	tiles = {"ambitest2.png"}
+})
+
 ambilight.register_light("petrol3",{
 	light_source = default.LIGHT_MAX-4,
 	drawtype ="plantlike",
@@ -169,7 +185,7 @@ ambilight.register_light("petrol3",{
 --ambilight.register_light(8,default.LIGHT_MAX-1,nil,nil,{"ambilight_light8.png"})
 
 
-
+--[[
 minetest.register_node("ambilight:window1", {
 	description = "Light 6 test",
 	drawtype = "nodebox",
@@ -207,7 +223,7 @@ minetest.register_node("ambilight:window3", {
 	--buildable_to = true,
 	groups = {dig_immediate=2},
 	
-})
+})]]--
 
 
 
