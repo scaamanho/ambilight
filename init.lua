@@ -8,6 +8,98 @@ local modpath = minetest.get_modpath(minetest.get_current_modname())
 
 ambilight = {}
 
+function ambilight.register_light2(name, node)
+	if not node.drawtype then
+		node.drawtype="nodebox"
+	end
+
+	if not node.tiles then
+		if not node.id then
+			--load default texture
+		else
+			node.tiles = {"ambilight_light"..node.id..".png"}
+		end
+	end
+
+	if not node.inventory_image then
+		if not node.id then
+			--load default texture
+		else
+			node.inventory_image = {"ambilight_light"..node.id..".png"}
+		end
+	end
+
+	if not node.wield_image then
+		if not node.id then
+			--load default texture
+		else
+			node.wield_image = {"ambilight_light"..node.id..".png"}
+		end
+	end
+
+	if not node.description then
+		node.description = "Ambilight "..name
+	end
+
+	if not node.light_source then
+		node.light_source = default.LIGHT_MAX - 5
+	end
+
+	if not node.enable_interact then
+		--do nothing
+	else
+		node.on_punch = function(pos, node, clicker, itemstack, pointed_thing)
+			minetest.set_node(pos, {name = "ambilight:"..name.."_off"})
+		end
+	end
+
+	minetest.register_node("ambilight:"..name, {
+		description = node.description,
+		drawtype = node.drawtype,
+		selection_box = node.selection_box,
+		tiles = node.tiles,
+		inventory_image = node.inventory_image,
+		wield_image = node.wield_image,
+		paramtype = "light",
+		light_source = node.light_source,
+		
+		--buildable_to = true,
+		on_punch = node.on_punch,
+		groups = {dig_immediate=2},
+		sounds = default.node_sound_glass_defaults(),
+	})
+
+
+	if not node.enable_interact then
+	else
+
+		if not node.tiles_off then
+			if not node.id then
+				--load default texture
+			else
+				node.tiles_off = {"ambilight_light"..node.id.."_off.png"}
+			end
+		end
+
+		minetest.register_node("ambilight:"..name.."_off", {
+			description = node.description.." off",
+			drawtype = node.drawtype,
+			selection_box = node.selection_box,
+			tiles = node.tiles_off,
+			paramtype = "light",
+			--buildable_to = true,
+			groups = {dig_immediate=2, not_in_creative_inventory=1},
+			on_punch = function(pos, node, clicker, itemstack, pointed_thing)
+				minetest.set_node(pos, {name = "ambilight:"..name})	  
+			end,
+			drop = "ambilight:"..name
+			
+		})
+	end
+
+end
+
+
 
 function ambilight.register_light(id, light_level, drawtype, selection_box, tiles)
 	if not drawtype then
@@ -62,8 +154,11 @@ function ambilight.register_light(id, light_level, drawtype, selection_box, tile
 	})
 end
 
-
-ambilight.register_light(1,default.LIGHT_MAX-4)
+ambilight.register_light2("one",{
+	id=1,
+	enable_interact=true
+})
+--ambilight.register_light(1,default.LIGHT_MAX-4)
 ambilight.register_light(2,default.LIGHT_MAX-4,"nodebox",{})
 ambilight.register_light(3,default.LIGHT_MAX-4,"nodebox",{})
 ambilight.register_light(4,default.LIGHT_MAX-4)
