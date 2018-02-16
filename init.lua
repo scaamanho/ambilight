@@ -8,7 +8,15 @@ local modpath = minetest.get_modpath(minetest.get_current_modname())
 
 ambilight = {}
 
-function ambilight.register_light(name, node)
+function ambilight.register_recipe(name, recipe)
+	minetest.register_craft({
+		--type = "shapeless",
+		output = "ambilight:"..name,
+		recipe = recipe
+	})
+end
+
+function ambilight.register_light(name, node, recipe)
 	if not node.drawtype then
 		node.drawtype="nodebox"
 	end
@@ -23,27 +31,6 @@ function ambilight.register_light(name, node)
 		end
 	end
 
-	--[[
-	if not node.inventory_image then
-		if not node.id then
-			--defaut inv img
-			node.inventory_image = node.tiles 
-		else
-			-- ambilight predefined id
-			node.inventory_image = {"ambilight_light"..node.id..".png"}
-		end
-	end
-
-	if not node.wield_image then
-		if not node.id then
-			-- default weild image
-			node.wield_image = node.tiles 
-		else
-			-- ambilight predefined id
-			node.wield_image = {"ambilight_light"..node.id..".png"} -- ambilight predefined
-		end
-	end
-	]]--
 	-- set default node description
 	if not node.description then
 		node.description = "Ambilight "..name
@@ -79,6 +66,17 @@ function ambilight.register_light(name, node)
 		sounds = default.node_sound_glass_defaults(),
 	})
 
+	if recipe then
+		ambilight.register_recipe(name, recipe)
+	end
+
+	-- TODO: sacar a funcion
+	if node.slice_block then -- and node.drawtipe == "nodebox"
+		-- todo: crear nodo slice
+		-- llamada recursiva con slice_block = false
+		-- generar recipe de manera automatica con el bloque padre
+	end
+
 
 	-- set light off
 	if node.enable_interact then
@@ -113,22 +111,28 @@ end
 
 
 -- default mod lights
-ambilight.register_light("one",{
-	id=1,
-	enable_interact=true
-})
+ambilight.register_light("one",
+--node
+{id = 1, enable_interact = true},
+-- recipe
+{{"default:torch","default:torch","default:torch"},{"","",""},{"","",""}})
 
 ambilight.register_light("two",{
 	id=2,
 	light_source = default.LIGHT_MAX-4,
 	enable_interact=true
-})
+},
+-- recipe
+{"default:torch","default:torch",""},{"","",""},{"","",""})
 
 ambilight.register_light("tree",{
 	id=3,
 	light_source = default.LIGHT_MAX-4,
 	enable_interact=true
-})
+},
+-- recipe
+{{"default:torch","",""},{"default:torch","",""},{"","",""}}
+)
 
 ambilight.register_light("four",{
 	id=4,
@@ -223,7 +227,7 @@ minetest.register_node("ambilight:window3", {
 	--buildable_to = true,
 	groups = {dig_immediate=2},
 	
-})]]--
+})
 
 
 
@@ -231,7 +235,7 @@ minetest.register_craft({
 	--type = "shapeless",
 	output = "ambilight:1",
 	recipe = {{"default:torch","default:torch","default:torch"},{"","",""},{"","",""}}
-})
+})]]--
 
 minetest.register_craft({
 	--type = "shapeless",
