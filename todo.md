@@ -9,15 +9,12 @@
 [ ] modificar metodo register_light para recibir json
 [ ] opcion en el json para determinar si la luz es apagable
 [ ]Crear textura por defecto para cuando no pasen la textura por config
+[ ] Lampara de mounstro
+[ ] Lamapara de zombihead
+[ ] Lamapara de item
 
 
-# IDEAS
---TODO DAR UTILIDA A LA NIeVe EN OTRO MOD CON CUBO
-minetest.register_craft({
-	type = "shapeless",
-	output = "default:water_source",
-	recipe = {"default:cube","default:torch","default:snow"},
-})
+
 
 # SNIPPLETS
 
