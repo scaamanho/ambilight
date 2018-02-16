@@ -28,23 +28,40 @@ end
 function ambilight.register_stairs(name,node)
 	-- Register default stairs and slabs
 	stairs.register_stair_and_slab("anbilight"..name, "ambilight:"..name,
-		{snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+    {snappy = 2, choppy = 2, oddly_breakable_by_hand = 2},
 		node.tiles,
 		name.." Stair",
 		name.." Slab",
 		default.node_sound_glass_defaults())
 
-	-- override created nodes
-	-- override stair
-	minetest.registered_nodes["stairs:stair_anbilight"..name].sunlight_propagates = true
-	minetest.registered_nodes["stairs:stair_anbilight"..name].light_source = 14
-	minetest.registered_nodes["stairs:stair_anbilight"..name].paramtype = "light"
-	
-	-- override slab
-	minetest.registered_nodes["stairs:slab_anbilight"..name].sunlight_propagates = true
-	minetest.registered_nodes["stairs:slab_anbilight"..name].light_source = 14
-	minetest.registered_nodes["stairs:stair_anbilight"..name].paramtype = "light"
 
+  -- TODO: override light_source
+	-- override created nodes
+  -- override stair
+  --stair = minetest.registered_nodes["stairs:stair_anbilight"..name]
+  --ambilight.register_light("stair_"..name, stair)
+
+  --[[minetest.register_node(":stairs:stair_anbilight"..name, {
+      paramtype = "light",
+      sunlight_propagates = true,
+      light_source = 10
+    })]]--
+
+  --[[stair = minetest.registered_nodes["stairs:stair_anbilight"..name]
+  stair.paramtype = "light"
+  stair.sunlight_propagates = true
+  stair.light_source = 10
+  minetest.register_node(":stairs:stair_anbilight"..name, stair)
+]]--
+  --minetest.registered_nodes["stairs:stair_anbilight"..name]
+	--minetest.registered_nodes["stairs:stair_anbilight"..name].
+	--minetest.registered_nodes["stairs:stair_anbilight"..name]
+	
+	
+  -- override slab
+  --[[minetest.registered_nodes["stairs:slab_anbilight"..name].paramtype = "light"
+	minetest.registered_nodes["stairs:slab_anbilight"..name].sunlight_propagates = true
+	minetest.registered_nodes["stairs:slab_anbilight"..name].light_source = 10]]--
 end
 
 function ambilight.register_pane(name, node)
@@ -55,7 +72,7 @@ function ambilight.register_pane(name, node)
 					{"","",""}}
 	
 	-- writed this code as it is for show clear sample of register nodes
-	-- feel free to change it if you wish and reuse ambilight.register_light
+	-- feel free to change it if you wish 
 	pane={ 
 		description = node.description.." Pane",
 		drawtype = "torchlike",
@@ -105,20 +122,21 @@ function ambilight.register_light(name, node, recipe)
 		node.description = "Ambilight "..name
 	end
 
+  -- TODO: ????? remove ??????
 	-- set default light intensity
 	if not node.light_source then
 		node.light_source = default.LIGHT_MAX - 5
 	end
 
   --TODO: cambiar a click derecho y el punch para dyes
-	-- set light interaction
-	if not node.enable_interact then
-		node.enable_interact = false
-	else
+  if node.enable_interact then
 		node.on_punch = function(pos, node, clicker, itemstack, pointed_thing)
 			minetest.set_node(pos, {name = "ambilight:"..name.."_off"})
 		end
-	end
+  end
+  
+
+
 
 	minetest.register_node("ambilight:"..name, {
 		description = node.description,

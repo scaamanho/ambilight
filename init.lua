@@ -97,12 +97,22 @@ ambilight.register_light("petrol3",{
 	wield_image = "ambitest3_32.png"
 })
 
+--[[
 --TODO: Lampara de item
+
+ambilight.register_light("texturelamp1",{
+	light_source = default.LIGHT_MAX-4,
+	tiles = {"ambilight_light2_32","ambilight_light5_32.png"},
+	reg_stair = false,
+	reg_pane = false,
+	enable_interact = true
+})
+
 
 --ambilight.register_light(8,default.LIGHT_MAX-1,nil,nil,{"ambilight_light8.png"})
 
 
---[[
+
 minetest.register_node("ambilight:window1", {
 	description = "Light 6 test",
 	drawtype = "nodebox",
