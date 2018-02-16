@@ -5,6 +5,7 @@
 ]]--
 
 local modpath = minetest.get_modpath(minetest.get_current_modname())
+--local creative_mode = minetest.setting_getbool("creative_mode")
 
 ambilight = {}
 
@@ -58,6 +59,7 @@ function ambilight.register_light(name, node, recipe)
 		--inventory_image = node.inventory_image,
 		--wield_image = node.wield_image,
 		paramtype = "light",
+		sunlight_propagates = true,
 		light_source = node.light_source,
 		
 		--buildable_to = true,
@@ -97,6 +99,7 @@ function ambilight.register_light(name, node, recipe)
 			selection_box = node.selection_box,
 			tiles = node.tiles_off,
 			paramtype = "light",
+			sunlight_propagates = true,
 			--buildable_to = true,
 			groups = {dig_immediate=2, not_in_creative_inventory=1},
 			on_punch = function(pos, node, clicker, itemstack, pointed_thing)
@@ -123,7 +126,8 @@ ambilight.register_light("two",{
 	enable_interact=true
 },
 -- recipe
-{"default:torch","default:torch",""},{"","",""},{"","",""})
+{{"default:torch","default:torch",""},{"","",""},{"","",""}}
+)
 
 ambilight.register_light("tree",{
 	id=3,
@@ -131,8 +135,7 @@ ambilight.register_light("tree",{
 	enable_interact=true
 },
 -- recipe
-{{"default:torch","",""},{"default:torch","",""},{"","",""}}
-)
+{{"default:torch","",""},{"default:torch","",""},{"","",""}})
 
 ambilight.register_light("four",{
 	id=4,
