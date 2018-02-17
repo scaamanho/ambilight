@@ -97,6 +97,19 @@ ambilight.register_light("petrol3",{
 	wield_image = "ambitest3_32.png"
 })
 
+ambilight.register_light("cubelamp1",{
+	light_source = default.LIGHT_MAX-4,
+	tiles = {"latern_cube_top_32.png","latern_cube_top_32.png",
+					"latern_cube_side_32.png","latern_cube_side_32.png",
+					"latern_cube_side_32.png","latern_cube_side_32.png"},
+	inventory_image = "latern_cube_side_32.png",
+	wield_image = "latern_cube_side_32.png",
+	reg_stair = false,
+	reg_pane = false,
+	enable_interact = true
+})
+
+
 --[[
 --TODO: Lampara de item
 

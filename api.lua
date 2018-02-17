@@ -136,24 +136,12 @@ function ambilight.register_light(name, node, recipe)
   end
   
 
+	node.paramtype = "light"
+	node.sunlight_propagates = true
+	node.groups = {dig_immediate=2}
+	node.sounds = default.node_sound_glass_defaults()
 
-
-	minetest.register_node("ambilight:"..name, {
-		description = node.description,
-		drawtype = node.drawtype,
-		selection_box = node.selection_box,
-		tiles = node.tiles,
-		--inventory_image = node.inventory_image,
-		--wield_image = node.wield_image,
-		paramtype = "light",
-		sunlight_propagates = true,
-		light_source = node.light_source,
-		
-		-- enable_interact =true
-		on_punch = node.on_punch,
-		groups = {dig_immediate=2},
-		sounds = default.node_sound_glass_defaults(),
-	})
+	minetest.register_node("ambilight:"..name, node)
 
 	-- register recipe for block
 	if recipe then
@@ -170,27 +158,14 @@ function ambilight.register_light(name, node, recipe)
 		ambilight.register_stairs(name,node)
 	end
 
-	--TODO: Sacar a funcion
-
 	-- set light off
 	if node.enable_interact then
-
-		-- TODO: poner capa por encima en vez de tener 2 imagenes y tener que definir tiles_off
-		if not node.tiles_off then
-			if not node.id then
-				--load default texture
-				node.tiles_off = node.tiles
-			else
-				-- ambilight predefined id
-				node.tiles_off = {"ambilight_light"..node.id.."_off.png"}
-			end
-		end
 
 		minetest.register_node("ambilight:"..name.."_off", {
 			description = node.description.." off",
 			drawtype = node.drawtype,
 			selection_box = node.selection_box,
-			tiles = node.tiles_off,
+			tiles = node.tiles,
 			paramtype = "light",
 			sunlight_propagates = true,
 			--buildable_to = true,
