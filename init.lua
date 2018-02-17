@@ -112,9 +112,7 @@ ambilight.register_light("cubelamp1",{
 
 ambilight.register_light("cubelamp2",{
 	light_source = default.LIGHT_MAX-4,
-	tiles = {"latern_cube2_top_32.png","latern_cube2_top_32.png",
-					"latern_cube2_side_32.png","latern_cube2_side_32.png",
-					"latern_cube2_side_32.png","latern_cube2_side_32.png"},
+	tiles = {"latern_cube2_top_32.png","latern_cube2_side_32.png"},
 	inventory_image = "latern_cube2_side_32.png",
 	wield_image = "latern_cube2_side_32.png",
 	enable_interact = true
@@ -122,9 +120,7 @@ ambilight.register_light("cubelamp2",{
 
 ambilight.register_light("cubelamp3",{
 	light_source = default.LIGHT_MAX-4,
-	tiles = {"latern_cube3_top_32.png","latern_cube3_top_32.png",
-					"latern_cube3_side_32.png","latern_cube3_side_32.png",
-					"latern_cube3_side_32.png","latern_cube3_side_32.png"},
+	tiles = {"latern_cube3_top_32.png","latern_cube3_side_32.png"},
 	inventory_image = "latern_cube3_side_32.png",
 	wield_image = "latern_cube3_side_32.png",
 	enable_interact = true
