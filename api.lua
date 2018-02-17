@@ -16,9 +16,22 @@
 ]]--
 
 
-function ambilight.register_recipe(name, recipe)
+function ambilight.clone( t1 )
+        local t2 = { }
+        if #t1 > 0 then
+                -- ordered copy of arrays
+                t2 = { unpack( t1 ) }
+        else
+                -- shallow copy of hashes
+                for k, v in pairs( t1 ) do t2[ k ] = v end
+        end
+        return t2
+end
+
+
+function ambilight.register_recipe(name, recipe, type)
 	minetest.register_craft({
-		--type = "shapeless",
+		type = type,
 		output = "ambilight:"..name,
 		recipe = recipe
 	})
@@ -33,43 +46,20 @@ function ambilight.register_stairs(name,node)
 		name.." Stair",
 		name.." Slab",
 		default.node_sound_glass_defaults())
-
-
+  --[[
   -- TODO: override light_source
-	-- override created nodes
-  -- override stair
-  --stair = minetest.registered_nodes["stairs:stair_anbilight"..name]
-  --ambilight.register_light("stair_"..name, stair)
-
-  --[[minetest.register_node(":stairs:stair_anbilight"..name, {
-      paramtype = "light",
-      sunlight_propagates = true,
-      light_source = 10
-    })]]--
-
-  --[[stair = minetest.registered_nodes["stairs:stair_anbilight"..name]
-  stair.paramtype = "light"
-  stair.sunlight_propagates = true
+  stair = ambilight.clone(minetest.registered_nodes["stairs:stair_anbilight"..name])
   stair.light_source = 10
-  minetest.register_node(":stairs:stair_anbilight"..name, stair)
-]]--
-  --minetest.registered_nodes["stairs:stair_anbilight"..name]
-	--minetest.registered_nodes["stairs:stair_anbilight"..name].
-	--minetest.registered_nodes["stairs:stair_anbilight"..name]
-	
-	
-  -- override slab
-  --[[minetest.registered_nodes["stairs:slab_anbilight"..name].paramtype = "light"
-	minetest.registered_nodes["stairs:slab_anbilight"..name].sunlight_propagates = true
-	minetest.registered_nodes["stairs:slab_anbilight"..name].light_source = 10]]--
+  minetest.registered_nodes["stairs:stair_anbilight"..name]=stair
+  ]]--
 end
 
 function ambilight.register_pane(name, node)
 	
 	--create default recipe for ambilight panes based in ambilight nodes
 	recipe={{"ambilight:"..name,"ambilight:"..name,"ambilight:"..name},
-					{"ambilight:"..name,"ambilight:"..name,"ambilight:"..name},
-					{"","",""}}
+			{"ambilight:"..name,"ambilight:"..name,"ambilight:"..name},
+			{"","",""}}
 	
 	-- writed this code as it is for show clear sample of register nodes
 	-- feel free to change it if you wish 
@@ -129,16 +119,16 @@ function ambilight.register_light(name, node, recipe)
 	end
 
   --TODO: cambiar a click derecho y el punch para dyes
-  if node.enable_interact then
+	if node.enable_interact then
 		node.on_punch = function(pos, node, clicker, itemstack, pointed_thing)
-			minetest.set_node(pos, {name = "ambilight:"..name.."_off"})
+		minetest.set_node(pos, {name = "ambilight:"..name.."_off"})
 		end
-  end
+	end
   
-
+	-- set default ambilight parametes
 	node.paramtype = "light"
 	node.sunlight_propagates = true
-	node.groups = {dig_immediate=2}
+	node.groups = {dig_immediate=2}--TODO: Set consistent group
 	node.sounds = default.node_sound_glass_defaults()
 
 	minetest.register_node("ambilight:"..name, node)
@@ -158,24 +148,20 @@ function ambilight.register_light(name, node, recipe)
 		ambilight.register_stairs(name,node)
 	end
 
-	-- set light off
+	-- set light off if is enabled
 	if node.enable_interact then
-
-		minetest.register_node("ambilight:"..name.."_off", {
-			description = node.description.." off",
-			drawtype = node.drawtype,
-			selection_box = node.selection_box,
-			tiles = node.tiles,
-			paramtype = "light",
-			sunlight_propagates = true,
-			--buildable_to = true,
-			groups = {dig_immediate=2, not_in_creative_inventory=1},
-			on_punch = function(pos, node, clicker, itemstack, pointed_thing)
-				minetest.set_node(pos, {name = "ambilight:"..name})	  
-			end,
-			drop = "ambilight:"..name
-			
-		})
+	
+		node_off = ambilight.clone(node)
+		node_off.description = node.description.." off"
+		node_off.light_source = 0
+		node_off.drop = "ambilight:"..name
+		node_off.groups = {dig_immediate=2, not_in_creative_inventory=1}
+		node_off.on_punch = function(pos, node, clicker, itemstack, pointed_thing)
+			minetest.set_node(pos, {name = "ambilight:"..name})	  
+		end
+		
+		
+		minetest.register_node("ambilight:"..name.."_off", node_off)
 	end
 
-end
+end --register_light

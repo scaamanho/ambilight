@@ -19,19 +19,17 @@
 # SNIPPLETS
 
 
-paramtype2 = "facedir",
-		place_param2 = 0,
-		groups = {wood = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
-		
-		tiles = {"default_wood.png^moreblocks_wood_tile_offset.png"},
-		sounds = sound_wood,
-		no_stairs = true,
-		
-		
-	sunlight_propagates = true,
+## CHECK 4 OTHER MOD
+
+```
+if not minetest.get_modpath("moreores") then
+	armor.materials.mithril = nil
+end
+```
 	
-	
-	
+## RECIPES
+
+```	
 	recipe = {
 		{"default:cobble", "default:cobble", "default:cobble"},
 		{"default:cobble", "default:cobble", "default:cobble"},
@@ -40,13 +38,9 @@ paramtype2 = "facedir",
 	
 	minetest.register_craft({
 	output = "moreblocks:rope 3",
-	recipe = {
-		{"default:junglegrass"},
-		{"default:junglegrass"},
-		{"default:junglegrass"},
-	}
-})
-
+	recipe = {{"default:junglegrass"},{"default:junglegrass"},{"default:junglegrass"}}
+	})
+```
 
 
 
