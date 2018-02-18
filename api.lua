@@ -125,12 +125,24 @@ function ambilight.register_light(name, node, recipe)
 		end
 	end
   
+  
+	if not node.groups then
+		node.groups = {dig_immediate=2}--TODO: Set consistent group
+	end
+	
+	if not node.sounds then
+		node.sounds = default.node_sound_glass_defaults()
+	end
+	
 	-- set default ambilight parametes
-	node.paramtype = "light"
-	node.sunlight_propagates = true
-	node.groups = {dig_immediate=2}--TODO: Set consistent group
-	node.sounds = default.node_sound_glass_defaults()
-
+	if not node.paramtype then
+		node.paramtype = "light"
+	end
+	
+	if not node.sunlight_propagates then
+		node.sunlight_propagates = true
+	end
+	
 	minetest.register_node("ambilight:"..name, node)
 
 	-- register recipe for block

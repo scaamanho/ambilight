@@ -10,7 +10,7 @@ local modpath = minetest.get_modpath(minetest.get_current_modname())
 ambilight = {}
 
 -- load api with the function ambilight.register_light api
--- ambilight.register_light(name, node, recipe)
+-- `ambilight.register_light(name, node, recipe)`
 dofile(modpath .. "/api.lua")
 
 
@@ -21,7 +21,9 @@ ambilight.register_light("one",
 --node
 {id = 1, enable_interact = true},
 -- recipe
-{{"default:torch","default:torch","default:torch"},{"","",""},{"","",""}})
+{{"default:torch","default:torch","default:torch"},
+{"","",""},
+{"","",""}})
 
 ambilight.register_light("two",{
 	id=2,
@@ -29,8 +31,9 @@ ambilight.register_light("two",{
 	enable_interact = true
 },
 -- recipe
-{{"default:torch","default:torch",""},{"","",""},{"","",""}}
-)
+{{"default:torch","default:torch",""},
+{"","",""},
+{"","",""}})
 
 ambilight.register_light("tree",{
 	id=3,
@@ -38,7 +41,9 @@ ambilight.register_light("tree",{
 	enable_interact = true
 },
 -- recipe
-{{"default:torch","",""},{"default:torch","",""},{"","",""}})
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
 
 ambilight.register_light("four",{
 	id=4,
@@ -50,22 +55,92 @@ ambilight.register_light("five",{
 	id=5,
 	light_source = default.LIGHT_MAX-4,
 	enable_interact = true
-})
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
 
 ambilight.register_light("six",{
 	id=6,
 	light_source = default.LIGHT_MAX-4,
 	enable_interact = true
-})
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
+
 
 ambilight.register_light("seven",{
+	id=7,
+	light_source = default.LIGHT_MAX-4,
+	enable_interact = true
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
+
+ambilight.register_light("eight",{
+	id=8,
+	light_source = default.LIGHT_MAX-4,
+	enable_interact = true
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
+
+ambilight.register_light("nine",{
+	id=9,
+	light_source = default.LIGHT_MAX-4,
+	enable_interact = true
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
+
+
+
+ambilight.register_light("chinese",{
+	id=10,
+	light_source = default.LIGHT_MAX-1,
+	enable_interact = true
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
+
+ambilight.register_light("chinese_tail",{
+	light_source = 0,
+	drawtype ="plantlike",
+	type = "fixed",
+	tiles = {"chinese_tail.png"},
+	walkable = false,
+	sounds = default.node_sound_leaves_defaults(),
+	fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25},
+	enable_interact = false
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
+
+--[[ambilight.register_light("seven",{
 	id=7,
 	light_source = default.LIGHT_MAX-4,
 	drawtype ="plantlike",
 	type = "fixed",
 	fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25},
 	enable_interact = true
-})
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
 
 -- custom lights
 
@@ -95,36 +170,46 @@ ambilight.register_light("petrol3",{
 	tiles = {"ambitest3_32.png"},
 	inventory_image = "ambitest3_32.png",
 	wield_image = "ambitest3_32.png"
-})
+})]]--
 
 ambilight.register_light("cubelamp1",{
 	light_source = default.LIGHT_MAX-4,
-	tiles = {"latern_cube_top_32.png","latern_cube_top_32.png",
-					"latern_cube_side_32.png","latern_cube_side_32.png",
-					"latern_cube_side_32.png","latern_cube_side_32.png"},
-	inventory_image = "latern_cube_side_32.png",
-	wield_image = "latern_cube_side_32.png",
+	tiles = {"latern_cube_top.png","latern_cube_side.png"},
+	inventory_image = {"latern_cube_top.png","latern_cube_side.png"},
+	wield_image = "latern_cube_side.png",
 	reg_stair = false,
 	reg_pane = false,
 	enable_interact = true
-})
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
 
 
 ambilight.register_light("cubelamp2",{
 	light_source = default.LIGHT_MAX-4,
-	tiles = {"latern_cube2_top_32.png","latern_cube2_side_32.png"},
-	inventory_image = "latern_cube2_side_32.png",
-	wield_image = "latern_cube2_side_32.png",
+	tiles = {"latern_cube2_top.png","latern_cube2_side.png"},
+	inventory_image = {"latern_cube2_top.png","latern_cube2_side.png"},
+	wield_image = "latern_cube2_side.png",
 	enable_interact = true
-})
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
 
 ambilight.register_light("cubelamp3",{
 	light_source = default.LIGHT_MAX-4,
-	tiles = {"latern_cube3_top_32.png","latern_cube3_side_32.png"},
-	inventory_image = "latern_cube3_side_32.png",
-	wield_image = "latern_cube3_side_32.png",
+	tiles = {"latern_cube3_top.png","latern_cube3_side.png"},
+	inventory_image = {"latern_cube3_top.png","latern_cube3_side.png"},
+	wield_image = "latern_cube3_side.png",
 	enable_interact = true
-})
+},
+-- recipe
+{{"default:torch","",""},
+{"default:torch","",""},
+{"","",""}})
 
 --[[
 --TODO: Lampara de item
